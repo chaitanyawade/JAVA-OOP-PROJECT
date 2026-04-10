@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:latest
+    container_name: antigravity_mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - antigravity-net
+
+  # UI simulation or Backend setup (MVP local)
+  # Uncomment/Modify when Dockerizing the Spring Boot app
+  # backend:
+  #   build: ./backend
+  #   container_name: antigravity_backend
+  #   ports:
+  #     - "8080:8080"
+  #   depends_on:
+  #     - mongodb
+  #   environment:
+  #     - SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017/antigravity
+  #   networks:
+  #     - antigravity-net
+
+volumes:
+  mongodb_data:
+
+networks:
+  antigravity-net:
+    driver: bridge
